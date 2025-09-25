@@ -1,3 +1,53 @@
-include ':reference-app', ':sample', ':opensrp-anc'
-//include ':android-json-form-wizard'
-//project(":android-json-form-wizard").projectDir = new File("../opensrp-client-native-form/android-json-form-wizard")
+pluginManagement {
+  repositories {
+    mavenLocal()
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
+rootProject.name = "opensrp-client-anc"
+
+include(":sample", ":opensrp-anc")
+
+def includeReferenceApp = !((gradle.startParameter.projectProperties['skipReferenceApp']
+  ?: System.getenv('SKIP_REFERENCE_APP'))?.toString()?.toBoolean() ?: false)
+
+if (includeReferenceApp && file('reference-app').exists()) {
+  include ':reference-app'
+}
+
+// Optional: prefer local sibling builds when enabled
+def sibling = { String path -> file(path)?.exists() }
+def useLocalSiblings = (gradle.startParameter.projectProperties['useLocalSiblings']
+  ?: System.getenv('USE_LOCAL_SIBLINGS'))?.toString()?.toBoolean() ?: false
+
+if (useLocalSiblings && sibling('../opensrp-client-core')) {
+  includeBuild('../opensrp-client-core') {
+    dependencySubstitution {
+      substitute(module('io.github.bluecodesystems:opensrp-client-core'))
+        .using(project(':opensrp-core'))
+    }
+  }
+}
+
+if (useLocalSiblings && sibling('../opensrp-client-native-form')) {
+  includeBuild('../opensrp-client-native-form') {
+    dependencySubstitution {
+      substitute(module('io.github.bluecodesystems:opensrp-client-native-form-new'))
+        .using(project(':opensrp-native-form'))
+      substitute(module('com.github.BlueCodeSystems:opensrp-client-native-form'))
+        .using(project(':opensrp-native-form'))
+    }
+  }
+}
+
+if (useLocalSiblings && sibling('../opensrp-client-configurable-views')) {
+  includeBuild('../opensrp-client-configurable-views') {
+    dependencySubstitution {
+      substitute(module('com.github.BlueCodeSystems:opensrp-client-configurable-views'))
+        .using(project(':opensrp-client-configurable-views'))
+    }
+  }
+}
