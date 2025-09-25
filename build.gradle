@@ -75,3 +75,7 @@ subprojects { sub ->
 nexusStaging {
   serverUrl = 'https://s01.oss.sonatype.org/service/local/'
 }
+
+tasks.register('publishToMavenLocal') {
+  dependsOn ':opensrp-anc:publishToMavenLocal'
+}
