@@ -37,6 +37,7 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.util.AppProperties;
 import org.smartregister.view.activity.DrishtiApplication;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -183,7 +184,8 @@ public class AncLibrary {
     }
 
     private void initializeYamlConfigs() {
-        Constructor constructor = new Constructor(YamlConfig.class);
+        LoaderOptions loaderOptions = new LoaderOptions();
+        Constructor constructor = new Constructor(YamlConfig.class, loaderOptions);
         TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
         customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
         constructor.addTypeDescription(customTypeDescription);
