@@ -2,4 +2,4 @@ jdk:
   - openjdk17
 
 install:
-  - ./gradlew -PskipReferenceApp=true -Pgroup=${GROUP:-org.smartregister} -Pversion=${VERSION:-3.0.0-SNAPSHOT} clean :opensrp-anc:publishToMavenLocal
+  - ./gradlew -PskipReferenceApp=true -Pgroup=${GROUP:-org.smartregister} -Pversion=${VERSION:-3.0.0} clean :opensrp-anc:publishToMavenLocal

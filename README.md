@@ -10,7 +10,7 @@ The OpenSRP Antenatal Care (ANC) library packages WHO-aligned ANC contact workfl
 - Tooling: Gradle 8.7 · Android Gradle Plugin 8.6.0 · Java 17 (no Kotlin plugin applied)
 - CI: no hosted pipeline; run Gradle builds locally before raising a PR
 - Default branch: `master`
-- Latest tag: not yet published (first release pending)
+- Latest tag: v3.0.0 (2025-09-25)
 
 ## Features
 - Digitised ANC register, contact, and counseling flows aligned with WHO guidelines
